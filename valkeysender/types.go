@@ -33,6 +33,7 @@ type Sender interface {
 type UserRegistrationData struct {
 	Name             string    `json:"name"`
 	Email            string    `json:"email"`
+	Username         string    `json:"username"`               // Generated FreeIPA username (e.g., tg_123456789)
 	TelegramUserID   int64     `json:"telegram_user_id"`
 	TelegramUsername string    `json:"telegram_username,omitempty"`
 	FirstName        string    `json:"first_name,omitempty"`

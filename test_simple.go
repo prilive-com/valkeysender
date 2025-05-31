@@ -15,18 +15,21 @@ func main() {
 
 	// Create minimal config for testing
 	config := &valkeysender.Config{
-		Address:      "localhost:6379",
-		Database:     0,
-		DefaultQueue: "test-queue",
-		MessageTTL:   24 * time.Hour,
-		DialTimeout:  5 * time.Second,
-		ReadTimeout:  3 * time.Second,
-		WriteTimeout: 3 * time.Second,
-		PoolSize:     10,
-		MinIdleConns: 2,
-		MaxRetries:   3,
-		RetryDelay:   time.Second,
-		LogLevel:     "INFO",
+		Address:           "10.1.0.4:30379",
+		Password:          "7Xwdz01BYEu6p74sNRHf8He2",
+		Database:          0,
+		DefaultQueue:      "test-queue",
+		MessageTTL:        24 * time.Hour,
+		DialTimeout:       5 * time.Second,
+		ReadTimeout:       3 * time.Second,
+		WriteTimeout:      3 * time.Second,
+		PoolSize:          10,
+		MinIdleConns:      2,
+		MaxRetries:        3,
+		RetryDelay:        time.Second,
+		RateLimitRequests: 100,
+		RateLimitBurst:    200,
+		LogLevel:          "INFO",
 	}
 
 	fmt.Printf("Testing connection to %s (database %d)\n", config.Address, config.Database)
