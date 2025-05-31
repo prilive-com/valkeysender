@@ -310,20 +310,6 @@ func (s *valkeySender) sendMessageInternal(ctx context.Context, queue string, me
 	return nil
 }
 
-// SendUserRegistration is a convenience method for sending user registration data
-func (s *valkeySender) SendUserRegistration(ctx context.Context, queue string, userData UserRegistrationData) error {
-	// Set source if not provided
-	if userData.Source == "" {
-		userData.Source = "valkeysender"
-	}
-	
-	// Set registration time if not provided
-	if userData.RegistrationTime.IsZero() {
-		userData.RegistrationTime = time.Now()
-	}
-	
-	return s.SendMessage(ctx, queue, userData)
-}
 
 // SendBatch sends multiple messages to the same queue atomically
 func (s *valkeySender) SendBatch(ctx context.Context, queue string, messages []interface{}) error {

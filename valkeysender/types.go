@@ -13,8 +13,6 @@ type Sender interface {
 	// SendMessageWithTTL sends a message with custom TTL
 	SendMessageWithTTL(ctx context.Context, queue string, message interface{}, ttl time.Duration) error
 	
-	// SendUserRegistration is a convenience method for sending user registration data
-	SendUserRegistration(ctx context.Context, queue string, userData UserRegistrationData) error
 	
 	// SendBatch sends multiple messages to the same queue atomically
 	SendBatch(ctx context.Context, queue string, messages []interface{}) error
@@ -29,20 +27,6 @@ type Sender interface {
 	Health() HealthStatus
 }
 
-// UserRegistrationData represents user registration information
-type UserRegistrationData struct {
-	Name             string    `json:"name"`
-	Email            string    `json:"email"`
-	Username         string    `json:"username"`               // Generated FreeIPA username (e.g., tg_123456789)
-	TelegramUserID   int64     `json:"telegram_user_id"`
-	TelegramUsername string    `json:"telegram_username,omitempty"`
-	FirstName        string    `json:"first_name,omitempty"`
-	LastName         string    `json:"last_name,omitempty"`
-	PhoneNumber      string    `json:"phone_number,omitempty"`
-	LanguageCode     string    `json:"language_code,omitempty"`
-	RegistrationTime time.Time `json:"registration_time"`
-	Source           string    `json:"source"`
-}
 
 // MessageMetadata contains metadata about sent messages
 type MessageMetadata struct {
