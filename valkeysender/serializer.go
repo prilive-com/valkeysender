@@ -74,19 +74,6 @@ func (s *JSONSerializer) ContentType() string {
 	return "application/json"
 }
 
-// SerializeUserRegistration is a convenience method for user registration data
-func SerializeUserRegistration(userData UserRegistrationData) ([]byte, error) {
-	serializer := NewJSONSerializer()
-	return serializer.Serialize(userData)
-}
-
-// DeserializeUserRegistration is a convenience method for user registration data
-func DeserializeUserRegistration(data []byte) (UserRegistrationData, error) {
-	var userData UserRegistrationData
-	serializer := NewJSONSerializer()
-	err := serializer.Deserialize(data, &userData)
-	return userData, err
-}
 
 // SerializeMessageEnvelope serializes a message envelope
 func SerializeMessageEnvelope(envelope MessageEnvelope) ([]byte, error) {

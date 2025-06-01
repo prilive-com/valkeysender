@@ -100,46 +100,6 @@ func TestJSONSerializerDeserialization(t *testing.T) {
 	})
 }
 
-func TestUserRegistrationSerialization(t *testing.T) {
-	userData := UserRegistrationData{
-		Name:             "John Doe",
-		Email:            "john@example.com",
-		TelegramUserID:   123456789,
-		TelegramUsername: "johndoe",
-		FirstName:        "John",
-		LastName:         "Doe",
-		PhoneNumber:      "+1234567890",
-		LanguageCode:     "en",
-		RegistrationTime: time.Date(2025, 5, 28, 12, 0, 0, 0, time.UTC),
-		Source:           "test",
-	}
-	
-	// Test serialization
-	data, err := SerializeUserRegistration(userData)
-	if err != nil {
-		t.Fatalf("SerializeUserRegistration failed: %v", err)
-	}
-	
-	// Test deserialization
-	result, err := DeserializeUserRegistration(data)
-	if err != nil {
-		t.Fatalf("DeserializeUserRegistration failed: %v", err)
-	}
-	
-	// Compare important fields
-	if result.Name != userData.Name {
-		t.Errorf("Expected name %s, got %s", userData.Name, result.Name)
-	}
-	if result.Email != userData.Email {
-		t.Errorf("Expected email %s, got %s", userData.Email, result.Email)
-	}
-	if result.TelegramUserID != userData.TelegramUserID {
-		t.Errorf("Expected telegram user ID %d, got %d", userData.TelegramUserID, result.TelegramUserID)
-	}
-	if result.Source != userData.Source {
-		t.Errorf("Expected source %s, got %s", userData.Source, result.Source)
-	}
-}
 
 func TestMessageEnvelopeSerialization(t *testing.T) {
 	envelope := MessageEnvelope{

@@ -132,34 +132,32 @@ func runDemo(ctx context.Context, sender valkeysender.Sender) error {
 	fmt.Printf("✅ Simple message sent successfully!\n")
 	fmt.Println()
 
-	// Test 2: Send user registration data
-	fmt.Println("📤 TEST 2: Sending user registration data")
+	// Test 2: Send structured data
+	fmt.Println("📤 TEST 2: Sending structured data")
 	fmt.Println("─────────────────────────────────────")
 	
-	userData := valkeysender.UserRegistrationData{
-		Name:             "John Demo User",
-		Email:            "john.demo@example.com",
-		TelegramUserID:   123456789,
-		TelegramUsername: "johndemo",
-		FirstName:        "John",
-		LastName:         "Demo",
-		PhoneNumber:      "+1234567890",
-		LanguageCode:     "en",
-		RegistrationTime: time.Now(),
-		Source:           "valkeysender-demo",
+	structuredData := map[string]interface{}{
+		"type":      "user_event",
+		"user_id":   123456789,
+		"action":    "login",
+		"timestamp": time.Now(),
+		"metadata": map[string]string{
+			"ip_address": "192.168.1.1",
+			"user_agent": "Demo Client",
+		},
 	}
 
-	// Pretty print the user data
-	userDataJSON, _ := json.MarshalIndent(userData, "   ", "  ")
-	fmt.Printf("📝 User registration data:\n   %s\n", string(userDataJSON))
-	fmt.Printf("🎯 Target queue: user-registrations\n")
+	// Pretty print the structured data
+	structuredDataJSON, _ := json.MarshalIndent(structuredData, "   ", "  ")
+	fmt.Printf("📝 Structured data:\n   %s\n", string(structuredDataJSON))
+	fmt.Printf("🎯 Target queue: events\n")
 	fmt.Println("⏳ Sending...")
 
-	err = sender.SendUserRegistration(ctx, "user-registrations", userData)
+	err = sender.SendMessage(ctx, "events", structuredData)
 	if err != nil {
-		return fmt.Errorf("failed to send user registration: %w", err)
+		return fmt.Errorf("failed to send structured data: %w", err)
 	}
-	fmt.Printf("✅ User registration data sent successfully!\n")
+	fmt.Printf("✅ Structured data sent successfully!\n")
 	fmt.Println()
 
 	// Test 3: Send message with custom TTL
